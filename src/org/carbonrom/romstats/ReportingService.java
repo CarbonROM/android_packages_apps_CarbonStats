@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.romstats;
+package org.carbonrom.romstats;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import android.util.Log;
 public class ReportingService extends Service {
 
 	private StatsUploadTask mTask;
-	
+
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -53,7 +53,7 @@ public class ReportingService extends Service {
 			Log.e(Utilities.TAG, "This ROM is not configured for ROM Statistics.");
 			stopSelf();
 		}
-    	
+
         if (mTask == null || mTask.getStatus() == AsyncTask.Status.FINISHED) {
             mTask = new StatsUploadTask();
             mTask.execute();
@@ -61,7 +61,7 @@ public class ReportingService extends Service {
 
         return Service.START_REDELIVER_INTENT;
     }
-    
+
     private class StatsUploadTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -75,7 +75,7 @@ public class ReportingService extends Service {
     		String RomVersion = Utilities.getRomVersion();
 
     		String RomStatsUrl = Utilities.getStatsUrl();
-    		
+
     		Log.d(Utilities.TAG, "SERVICE: Report URL=" + RomStatsUrl);
     		Log.d(Utilities.TAG, "SERVICE: Device ID=" + deviceId);
     		Log.d(Utilities.TAG, "SERVICE: Device Name=" + deviceName);
@@ -112,7 +112,7 @@ public class ReportingService extends Service {
 
             return success;
         }
-        
+
         @Override
         protected void onPostExecute(Boolean result) {
             final Context context = ReportingService.this;
@@ -133,5 +133,5 @@ public class ReportingService extends Service {
             stopSelf();
         }
     }
-        
+
 }

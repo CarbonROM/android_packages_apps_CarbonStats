@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.romstats;
+package org.carbonrom.romstats;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -36,46 +36,46 @@ public class AnonymousStats extends PreferenceActivity
         Preference.OnPreferenceChangeListener {
 
     private static final String VIEW_STATS = "pref_view_stats";
-    
+
     private static final String PREF_UNINSTALL = "pref_uninstall_romstats";
-    
+
     protected static final String ANONYMOUS_OPT_IN = "pref_anonymous_opt_in";
     protected static final String ANONYMOUS_LAST_CHECKED = "pref_anonymous_checked_in";
 
     private CheckBoxPreference mEnableReporting;
     private Preference mViewStats;
     private Preference btnUninstall;
-    
+
     private Dialog mOkDialog;
     private boolean mOkClicked;
-    
+
     private SharedPreferences mPrefs;
 
     public static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(Utilities.SETTINGS_PREF_NAME, 0);
     }
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
     	addPreferencesFromResource(R.xml.anonymous_stats);
-    	
+
     	mPrefs = getPreferences(this);
-        
+
     	PreferenceScreen prefSet = getPreferenceScreen();
         mEnableReporting = (CheckBoxPreference) prefSet.findPreference(ANONYMOUS_OPT_IN);
         mViewStats = (Preference) prefSet.findPreference(VIEW_STATS);
         btnUninstall = prefSet.findPreference(PREF_UNINSTALL);
-        
+
         // show Uninstall button if RomStats is installed as User App
         try {
             PackageManager pm = getPackageManager();
             ApplicationInfo appInfo = pm.getApplicationInfo(getPackageName(), 0);
-            
+
             //Log.d(Utilities.TAG, "App is installed in: " + appInfo.sourceDir);
             //Log.d(Utilities.TAG, "App is system: " + (appInfo.flags & ApplicationInfo.FLAG_SYSTEM));
-            
+
             if ((appInfo.sourceDir.startsWith("/data/app/")) && (appInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
             	// it is a User app
             	btnUninstall.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -88,7 +88,7 @@ public class AnonymousStats extends PreferenceActivity
             } else {
             	prefSet.removePreference(btnUninstall);
             }
-            
+
         } catch (Exception e) {
         	prefSet.removePreference(btnUninstall);
         }
@@ -117,7 +117,7 @@ public class AnonymousStats extends PreferenceActivity
 			}
 		} else if (preference == mViewStats) {
 			// Display the stats page
-			Uri uri = Uri.parse(Utilities.getStatsUrl() + "stats");
+			Uri uri = Uri.parse(Utilities.getStatsUrl());
 			startActivity(new Intent(Intent.ACTION_VIEW, uri));
 		} else {
 			// If we didn't handle it, let preferences handle it.
@@ -151,7 +151,7 @@ public class AnonymousStats extends PreferenceActivity
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
         }
     }
-    
+
     public void uninstallSelf() {
 		Intent intent = new Intent(Intent.ACTION_DELETE);
 		intent.setData(Uri.parse("package:" + getPackageName()));

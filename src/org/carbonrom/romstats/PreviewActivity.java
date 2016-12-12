@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.romstats;
+package org.carbonrom.romstats;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -36,7 +36,7 @@ public class PreviewActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preview_data);
-		
+
 		final PreferenceScreen prefSet = getPreferenceScreen();
 		final Context context = getApplicationContext();
 
@@ -48,5 +48,5 @@ public class PreviewActivity extends PreferenceActivity {
         prefSet.findPreference(ROMNAME).setSummary(Utilities.getRomName());
         prefSet.findPreference(ROMVERSION).setSummary(Utilities.getRomVersion());
 	}
-	
+
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.romstats;
+package org.carbonrom.romstats;
 
 import java.math.BigInteger;
 import java.net.NetworkInterface;
@@ -55,7 +55,7 @@ public class Utilities {
 		if (returnUrl.isEmpty()) {
 			return null;
 		}
-		
+
 		// if the last char of the link is not /, add it
 		if (!returnUrl.substring(returnUrl.length() - 1).equals("/")) {
 			returnUrl += "/";
@@ -106,7 +106,7 @@ public class Utilities {
 	public static String getRomVersion() {
 		return SystemProperties.get("ro.romstats.version");
 	}
-	
+
 	public static long getTimeFrame() {
 		String tFrameStr = SystemProperties.get("ro.romstats.tframe", "7");
 		return Long.valueOf(tFrameStr);

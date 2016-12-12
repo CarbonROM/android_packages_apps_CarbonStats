@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.romstats;
+package org.carbonrom.romstats;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -93,9 +93,9 @@ public class ReportingServiceManager extends BroadcastReceiver {
 			setAlarm(context, 0);
 			return;
 		}
-		
+
 		long UPDATE_INTERVAL = Long.valueOf(Utilities.getTimeFrame()) * MILLIS_PER_DAY;
-		
+
 		long timeLeft = System.currentTimeMillis() - lastSynced;
 		if (timeLeft < UPDATE_INTERVAL) {
 			Log.d(Utilities.TAG, "Waiting for next sync : " + timeLeft / MILLIS_PER_HOUR + " hours");
